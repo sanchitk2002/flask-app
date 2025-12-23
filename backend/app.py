@@ -6,20 +6,13 @@ import os
 
 load_dotenv()
 
-app = Flask(__name__)
-
 # ----- MongoDB Atlas Connection -----
 MONGO_URI = os.getenv('MONGO_URI')
 client = pymongo.MongoClient(MONGO_URI)
 db = client.my_database
-collection = db.users
+collection = db['flask app']
 
-
-# ----- Home Page (Form) -----
-@app.route("/", methods=["GET"])
-def home():
-    return render_template("form.html")
-
+app = Flask(__name__)
 
 # ----- API Route (Reads from file and returns JSON) -----
 @app.route("/api", methods=["GET"])
@@ -55,5 +48,4 @@ def submit():
 
 
 if __name__ == "__main__":
-        app.run(host="0.0.0.0", port=50, debug=True)
-
+        app.run(host="0.0.0.0", port=90, debug=True)
